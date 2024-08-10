@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./lib/fontawesome.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Movies Database App</title>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="container">
+        <div class="logo"><a href="./index.html">FLICKS</a></div>
+
+        <nav>
+          <ul>
+            <li><a href="#" class="nav-link">Movies</a></li>
+            <li><a href="#" class="nav-link">TV Shows</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Now Playing section -->
+    <section class="now-playing">
+      <h2>Now Playing</h2>
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <!-- <div class="swiper-slide">
+            <a href="#">
+              <img src="./images/no-image.jpg" alt="Movie title" srcset="" />
+            </a>
+          </div> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Movies -->
+    <section class="search">
+      <div class="container">
+        <div id="aler"></div>
+        <form action="#" class="search-form">
+          <!-- Movies and shows radio box -->
+          <div class="search-radio">
+            <input type="radio" name="type" id="movie" value="movie" checked />
+            <label for="movies">Movies</label>
+
+            <input type="radio" name="type" id="tv" value="tv" />
+            <label for="tv-shows">TV Shows</label>
+          </div>
+
+          <div class="search-flex">
+            <input
+              type="text"
+              name="search-term"
+              id="search-term"
+              placeholder="Enter movie or show title"
+            />
+
+            <button class="btn" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
