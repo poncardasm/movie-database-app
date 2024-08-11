@@ -228,3 +228,37 @@ section h2 {
   background: transparent;
   color: #fff;
 }
+
+/* Footer */
+.main-footer {
+  background: #020d18;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+
+.main-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-footer .container .logo {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.main-footer .container .social-links {
+  display: flex;
+  font-size: 20px;
+}
+
+.main-footer .container .social-links a {
+  margin-left: 10px;
+  color: #fff;
+}
+
+.main-footer .container .social-links a:hover {
+  color: var(--color-secondary);
+}
