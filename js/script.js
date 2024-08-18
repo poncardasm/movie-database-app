@@ -3,21 +3,21 @@ const global = {
 };
 
 // Fetch data from TMDB API
-
 async function fetchAPIData(endpoint) {
-  const API_KEY = import.meta.env.VITE_TMDB_API_KEY; // Use the Vite environment variable
-  const API_URL = 'https://api.themoviedb.org/3/';
+  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+  const BASE_URL = 'https://api.themoviedb.org/3';
 
-  const response = await fetch(
-    `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
-  );
+  const response = await fetch(`${BASE_URL}/${endpoint}?api_key=${API_KEY}`);
   const data = await response.json();
 
   return data;
 }
 
-// Example usage
-fetchAPIData('movie/popular').then((data) => console.log(data));
+// Display popular movies
+async function displayPopularMovies() {
+  const results = await fetchAPIData('movie/popular');
+  console.log(results);
+}
 
 // Highlight active link
 function highlightActiveLink() {
@@ -34,7 +34,7 @@ function init() {
   switch (global.currentPage) {
     case '/':
     case '/index.html':
-      console.log('Home');
+      displayPopularMovies();
       break;
     case '/shows.html':
       console.log('Shows');
