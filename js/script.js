@@ -7,8 +7,12 @@ async function fetchAPIData(endpoint) {
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const BASE_URL = 'https://api.themoviedb.org/3';
 
+  showSpinner();
+
   const response = await fetch(`${BASE_URL}/${endpoint}?api_key=${API_KEY}`);
   const data = await response.json();
+
+  hideSpinner();
 
   return data;
 }
@@ -47,6 +51,14 @@ async function displayPopularMovies() {
     `;
     document.querySelector('#popular-movies').appendChild(div);
   });
+}
+
+function showSpinner() {
+  document.querySelector('.spinner').classList.add('show');
+}
+
+function hideSpinner() {
+  document.querySelector('.spinner').classList.remove('show');
 }
 
 // Highlight active link
