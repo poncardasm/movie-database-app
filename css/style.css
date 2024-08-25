@@ -179,6 +179,11 @@ ul {
   color: var(--color-secondary);
 }
 
+/* Heading */
+h1 {
+  font-size: 3rem;
+}
+
 /* Section: Now Playing */
 
 section.now-playing {
@@ -188,7 +193,7 @@ section.now-playing {
 
 section h2 {
   margin: 20px 0;
-  text-align: center;
+  text-align: left;
   text-transform: uppercase;
 }
 
