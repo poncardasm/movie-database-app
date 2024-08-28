@@ -212,11 +212,11 @@ async function displayTVSeriesDetails() {
 
             <h5>Genres</h5>
             <ul class="list-group">
-              <li>Genre 1</li>
-              <li>Genre 2</li>
-              <li>Genre 3</li>
+              ${tv.genres.map((genre) => `<li>${genre.name}</li>`).join('')}
             </ul>
-            <a href="#" target="_blank" class="btn">Visit Show Homepage</a>
+            <a href="${
+              tv.homepage
+            }" target="_blank" class="btn">Visit Show Homepage</a>
           </div>
         </div>
       </div>
@@ -224,13 +224,19 @@ async function displayTVSeriesDetails() {
       <div class="details-bottom">
         <h2>Show Info</h2>
         <ul>
-          <li><span class="text-secondary">Number of Episodes: </span>50</li>
-          <li><span class="text-secondary">Last Episode to Air: </span>Last</li>
-          <li><span class="text-secondary">Status: </span>Released</li>
+          <li><span class="text-secondary">Number of Episodes: </span>${
+            tv.number_of_episodes
+          }</li>
+          <li><span class="text-secondary">Last Episode to Air: </span>${
+            tv.last_episode_to_air.episode_number
+          }</li>
+          <li><span class="text-secondary">Status: </span>${tv.status}</li>
+          <li><span class="text-secondary">Production:</span> ${tv.production_companies
+            .map((company) => `${company.name}`)
+            .join(', ')}
+            </li>
         </ul>
-
-        <h4>Production Companies</h4>
-        <div class="list-group">Company 1, Company 2, Company 3</div>`;
+      </div>`;
 
   document.querySelector('#show-details').appendChild(div);
 }
@@ -254,8 +260,7 @@ function displayBackdropImg(type, backdropPath) {
   if (type === 'tv') {
     document.querySelector('#show-details').appendChild(overlayDiv);
   } else if (type === 'movie') {
-    // document.querySelector('#movie-details').appendChild(overlayDiv);
-    document.body.appendChild(overlayDiv);
+    document.querySelector('#movie-details').appendChild(overlayDiv);
   }
 }
 
