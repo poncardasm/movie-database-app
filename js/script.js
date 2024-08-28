@@ -166,6 +166,19 @@ async function displayPopularShows() {
   });
 }
 
+// Display TV Series details
+async function displayTVSeriesDetails() {
+  const tvID = window.location.search.split('=')[1];
+
+  const tv = await fetchAPIData(`tv/${tvID}`);
+
+  // Image backdrop overlay
+  displayBackdropImg('tv', tv.backdrop_path);
+
+  console.log(tvSerries);
+}
+
+// Spinner
 function showSpinner() {
   document.querySelector('.spinner').classList.add('show');
 }
@@ -182,6 +195,11 @@ function displayBackdropImg(type, backdropPath) {
   overlayDiv.classList.add('backdrop-img-overlay');
 
   document.querySelector('#movie-details').appendChild(overlayDiv);
+  // if (type === 'tv') {
+  //   document.querySelector('#show-details').appendChild(overlayDiv);
+  // } else if (type === 'movie') {
+  //   document.querySelector('#movie-details').appendChild(overlayDiv);
+  // }
 }
 
 // Format release date
@@ -221,7 +239,7 @@ function init() {
       displayPopularShows();
       break;
     case '/tv-details.html':
-      console.log('TV Details');
+      displayTVSeriesDetails();
       break;
   }
   highlightActiveLink();
