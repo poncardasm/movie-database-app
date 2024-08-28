@@ -172,10 +172,67 @@ async function displayTVSeriesDetails() {
 
   const tv = await fetchAPIData(`tv/${tvID}`);
 
+  console.log(tv);
+
   // Image backdrop overlay
   displayBackdropImg('tv', tv.backdrop_path);
 
-  console.log(tvSerries);
+  const div = document.createElement('div');
+
+  div.innerHTML = `
+  <div class="details-top">
+          <div>
+          ${
+            tv.poster_path
+              ? `<img
+            src="https://image.tmdb.org/t/p/w500${tv.poster_path}"
+            alt="${tv.name}"
+            class="card-img-top"
+          />`
+              : `<img
+            src="images/no-image.jpg"
+            alt="${tv.name}"
+            class="card-img-top"
+          />`
+          }
+          </div>
+
+          <div>
+            <h1>${tv.name}</h1>
+            <p>
+              <i class="fas fa-star text-primary"></i>
+              ${tv.vote_average.toFixed(1)}/10
+            </p>
+            <p class="text-muted">Released Date: ${formatReleaseDate(
+              tv.first_air_date
+            )}</p>
+            <p>
+              ${tv.overview}
+            </p>
+
+            <h5>Genres</h5>
+            <ul class="list-group">
+              <li>Genre 1</li>
+              <li>Genre 2</li>
+              <li>Genre 3</li>
+            </ul>
+            <a href="#" target="_blank" class="btn">Visit Show Homepage</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-bottom">
+        <h2>Show Info</h2>
+        <ul>
+          <li><span class="text-secondary">Number of Episodes: </span>50</li>
+          <li><span class="text-secondary">Last Episode to Air: </span>Last</li>
+          <li><span class="text-secondary">Status: </span>Released</li>
+        </ul>
+
+        <h4>Production Companies</h4>
+        <div class="list-group">Company 1, Company 2, Company 3</div>`;
+
+  document.querySelector('#show-details').appendChild(div);
 }
 
 // Spinner
@@ -194,12 +251,12 @@ function displayBackdropImg(type, backdropPath) {
 
   overlayDiv.classList.add('backdrop-img-overlay');
 
-  document.querySelector('#movie-details').appendChild(overlayDiv);
-  // if (type === 'tv') {
-  //   document.querySelector('#show-details').appendChild(overlayDiv);
-  // } else if (type === 'movie') {
-  //   document.querySelector('#movie-details').appendChild(overlayDiv);
-  // }
+  if (type === 'tv') {
+    document.querySelector('#show-details').appendChild(overlayDiv);
+  } else if (type === 'movie') {
+    // document.querySelector('#movie-details').appendChild(overlayDiv);
+    document.body.appendChild(overlayDiv);
+  }
 }
 
 // Format release date
