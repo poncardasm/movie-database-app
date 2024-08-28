@@ -60,6 +60,10 @@ async function displayMovieDetails() {
   const movieId = window.location.search.split('=')[1];
 
   const movie = await fetchAPIData(`movie/${movieId}`);
+
+  // Image backdrop overlay
+  displayBackdropImg('movie', movie.backdrop_path);
+
   const div = document.createElement('div');
 
   div.innerHTML = `
@@ -168,6 +172,16 @@ function showSpinner() {
 
 function hideSpinner() {
   document.querySelector('.spinner').classList.remove('show');
+}
+
+// Display backdrop image
+function displayBackdropImg(type, backdropPath) {
+  const overlayDiv = document.createElement('div');
+  overlayDiv.style.backgroundImage = `linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url(https://image.tmdb.org/t/p/original/${backdropPath})`;
+
+  overlayDiv.classList.add('backdrop-img-overlay');
+
+  document.querySelector('#movie-details').appendChild(overlayDiv);
 }
 
 // Format release date
