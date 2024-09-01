@@ -310,9 +310,6 @@ function initSwiper() {
       700: {
         slidesPerView: 3,
       },
-      1200: {
-        slidesPerView: 4,
-      },
     },
   });
 }
