@@ -6,12 +6,16 @@ const global = {
     page: 1,
     totalPages: 1,
   },
+  api: {
+    apiKey: import.meta.env.VITE_TMDB_API_KEY,
+    apiUrl: 'https://api.themoviedb.org/3',
+  },
 };
 
 // Fetch data from TMDB API
 async function fetchAPIData(endpoint) {
-  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-  const BASE_URL = 'https://api.themoviedb.org/3';
+  const API_KEY = global.api.apiKey;
+  const BASE_URL = global.api.apiUrl;
 
   showSpinner();
 
@@ -278,7 +282,7 @@ async function searchTitle() {
   global.search.term = urlParams.get('search-term');
 
   if (global.search.term !== '' && global.search.term !== null) {
-    //
+    const results = await searchAPIData;
   } else {
     showAlert('Please enter a title');
   }
