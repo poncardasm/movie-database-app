@@ -341,6 +341,17 @@ function showAlert(message, className) {
   alertEl.classList.add('alert', className);
   alertEl.appendChild(document.createTextNode(message));
   document.querySelector('#alert').appendChild(alertEl);
+
+  // Style alert to absolute position
+  alertEl.style.position = 'absolute';
+  alertEl.style.top = '50px';
+  alertEl.style.left = '50%';
+  alertEl.style.transform = 'translateX(-50%)';
+  alertEl.style.zIndex = '1000';
+
+  setTimeout(() => {
+    alertEl.remove();
+  }, 3000);
 }
 
 // Format release date

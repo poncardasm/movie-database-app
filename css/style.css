@@ -378,11 +378,22 @@ section h2 {
 }
 
 /* Alert */
-.alert {
+/* .alert {
   background: red;
   padding: 10px 20px;
   margin-bottom: 20px;
   border-radius: 5px;
+} */
+
+.alert {
+  padding: 10px 20px;
+  background-color: #f44336; /* Red background */
+  color: white; /* White text */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .alert-success {
