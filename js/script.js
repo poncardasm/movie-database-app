@@ -27,6 +27,23 @@ async function fetchAPIData(endpoint) {
   return data;
 }
 
+// Request to Search
+async function searchAPIData(endpoint) {
+  const API_KEY = global.api.apiKey;
+  const API_URL = global.api.apiUrl;
+
+  showSpinner();
+
+  const response = await fetch(
+    `${API_URL}/search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}`
+  );
+  const data = await response.json();
+
+  hideSpinner();
+
+  return data;
+}
+
 // Display popular movies
 async function displayPopularMovies() {
   const { results } = await fetchAPIData('movie/popular');
@@ -282,7 +299,8 @@ async function searchTitle() {
   global.search.term = urlParams.get('search-term');
 
   if (global.search.term !== '' && global.search.term !== null) {
-    const results = await searchAPIData;
+    const results = await searchAPIData();
+    console.log(results);
   } else {
     showAlert('Please enter a title');
   }
