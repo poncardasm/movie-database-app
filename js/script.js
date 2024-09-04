@@ -1,5 +1,11 @@
 const global = {
   currentPage: window.location.pathname,
+  search: {
+    term: '',
+    type: '',
+    page: 1,
+    totalPages: 1,
+  },
 };
 
 // Fetch data from TMDB API
@@ -263,6 +269,21 @@ function displayBackdropImg(type, backdropPath) {
   }
 }
 
+// Search Movie or TV title
+async function searchTitle() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  global.search.type = urlParams.get('type');
+  global.search.term = urlParams.get('search-term');
+
+  if (global.search.term !== '' && global.search.term !== null) {
+    //
+  } else {
+    showAlert('Please enter a title');
+  }
+}
+
 // Display slider movies
 async function displaySlider() {
   const { results } = await fetchAPIData('movie/now_playing');
@@ -314,6 +335,14 @@ function initSwiper() {
   });
 }
 
+// Show Alert
+function showAlert(message, className) {
+  const alertEl = document.createElement('div');
+  alertEl.classList.add('alert', className);
+  alertEl.appendChild(document.createTextNode(message));
+  document.querySelector('#alert').appendChild(alertEl);
+}
+
 // Format release date
 function formatReleaseDate(releaseDateStr) {
   const releaseDate = new Date(releaseDateStr);
@@ -353,6 +382,9 @@ function init() {
       break;
     case '/tv-details.html':
       displayTVSeriesDetails();
+      break;
+    case '/search.html':
+      searchTitle();
       break;
   }
   highlightActiveLink();
