@@ -28,7 +28,7 @@ async function fetchAPIData(endpoint) {
 }
 
 // Request to Search
-async function searchAPIData(endpoint) {
+async function searchAPIData() {
   const API_KEY = global.api.apiKey;
   const API_URL = global.api.apiUrl;
 
