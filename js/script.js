@@ -300,6 +300,7 @@ async function searchTitle() {
 
   if (global.search.term !== '' && global.search.term !== null) {
     const results = await searchAPIData();
+    document.querySelector('#search-term').value = global.search.term;
     console.log(results);
   } else {
     showAlert('Please enter a title');
