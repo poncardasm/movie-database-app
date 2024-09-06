@@ -356,18 +356,52 @@ async function searchTitle() {
 
     if (results.length === 0) {
       showAlert('No results found', 'alert-error');
+      return;
     }
+
+    displaySearchResult(results);
   } else {
     showAlert('Please enter a title');
   }
 }
 
+function displaySearchResult(results) {
+  results.forEach((result) => {
+    const div = document.createElement('div');
+    div.classList.add('card');
+    div.innerHTML = `
+        <a href="./movie-details.html?id=${result.id}">
+          ${
+            result.poster_path
+              ? `<img
+            src="https://image.tmdb.org/t/p/w500${result.poster_path}"
+            alt="${result.title}"
+            class="card-img-top"
+          />`
+              : `<img
+            src="images/no-image.jpg"
+            alt="${result.title}"
+            class="card-img-top"
+          />`
+          }
+        </a>
+
+        <div class="card-body">
+          <h5 class="card-title">${result.title}</h5>
+          <p class="card-text">
+            <small class="text-muted">Released: ${formatReleaseDate(
+              result.release_date
+            )}</small>
+          </p>
+        </div>
+    `;
+    document.querySelector('#search-results').appendChild(div);
+  });
+}
 // Show Alert
 function showAlert(message, className = 'alert-error') {
   const alertEl = document.createElement('div');
   alertEl.classList.add('alert', className);
-  console.log(alertEl);
-
   alertEl.appendChild(document.createTextNode(message));
   document.querySelector('#alert').appendChild(alertEl);
 
