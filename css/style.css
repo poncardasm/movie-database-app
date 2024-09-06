@@ -387,7 +387,6 @@ section h2 {
 
 .alert {
   padding: 10px 20px;
-  background-color: #f44336; /* Red background */
   color: white; /* White text */
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

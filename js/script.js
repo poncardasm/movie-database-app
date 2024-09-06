@@ -290,23 +290,6 @@ function displayBackdropImg(type, backdropPath) {
   }
 }
 
-// Search Movie or TV title
-async function searchTitle() {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-
-  global.search.type = urlParams.get('type');
-  global.search.term = urlParams.get('search-term');
-
-  if (global.search.term !== '' && global.search.term !== null) {
-    const results = await searchAPIData();
-    document.querySelector('#search-term').value = global.search.term;
-    console.log(results);
-  } else {
-    showAlert('Please enter a title');
-  }
-}
-
 // Display slider movies
 async function displaySlider() {
   const { results } = await fetchAPIData('movie/now_playing');
@@ -358,10 +341,33 @@ function initSwiper() {
   });
 }
 
+// Search Movie or TV title
+async function searchTitle() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  global.search.type = urlParams.get('type');
+  global.search.term = urlParams.get('search-term');
+
+  if (global.search.term !== '' && global.search.term !== null) {
+    // document.querySelector('#search-term').value = global.search.term;
+
+    const { results, total_pages, page } = await searchAPIData();
+
+    if (results.length === 0) {
+      showAlert('No results found', 'alert-error');
+    }
+  } else {
+    showAlert('Please enter a title');
+  }
+}
+
 // Show Alert
-function showAlert(message, className) {
+function showAlert(message, className = 'alert-error') {
   const alertEl = document.createElement('div');
   alertEl.classList.add('alert', className);
+  console.log(alertEl);
+
   alertEl.appendChild(document.createTextNode(message));
   document.querySelector('#alert').appendChild(alertEl);
 
