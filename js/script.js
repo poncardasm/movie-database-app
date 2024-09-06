@@ -350,7 +350,7 @@ async function searchTitle() {
   global.search.term = urlParams.get('search-term');
 
   if (global.search.term !== '' && global.search.term !== null) {
-    // document.querySelector('#search-term').value = global.search.term;
+    document.querySelector('#search-term').value = global.search.term;
 
     const { results, total_pages, page } = await searchAPIData();
 
@@ -358,6 +358,8 @@ async function searchTitle() {
       showAlert('No results found', 'alert-error');
       return;
     }
+
+    console.log(results);
 
     displaySearchResult(results);
   } else {
@@ -375,22 +377,34 @@ function displaySearchResult(results) {
             result.poster_path
               ? `<img
             src="https://image.tmdb.org/t/p/w500${result.poster_path}"
-            alt="${result.title}"
+            alt="${
+              global.search.type === 'movie'
+                ? result.release_date
+                : result.first_air_date
+            }"
             class="card-img-top"
           />`
               : `<img
             src="images/no-image.jpg"
-            alt="${result.title}"
+            alt="${
+              global.search.type === 'movie'
+                ? result.release_date
+                : result.first_air_date
+            }"
             class="card-img-top"
           />`
           }
         </a>
 
         <div class="card-body">
-          <h5 class="card-title">${result.title}</h5>
+          <h5 class="card-title">${
+            global.search.type === 'movie' ? result.title : result.name
+          }</h5>
           <p class="card-text">
             <small class="text-muted">Released: ${formatReleaseDate(
-              result.release_date
+              global.search.type === 'movie'
+                ? result.release_date
+                : result.first_air_date
             )}</small>
           </p>
         </div>
