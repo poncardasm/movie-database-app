@@ -412,6 +412,61 @@ function displaySearchResult(results) {
     document.querySelector('#search-results').appendChild(div);
   });
 }
+
+// function displaySearchResult(results) {
+//   const searchResultsContainer = document.querySelector('#search-results');
+//   searchResultsContainer.innerHTML = ''; // Clear previous results
+
+//   const gridContainer = document.createElement('div');
+//   gridContainer.classList.add('grid');
+
+//   results.forEach((result) => {
+//     const div = document.createElement('div');
+//     div.classList.add('card');
+//     div.innerHTML = `
+//         <a href="./movie-details.html?id=${result.id}">
+//           ${
+//             result.poster_path
+//               ? `<img
+//             src="https://image.tmdb.org/t/p/w500${result.poster_path}"
+//             alt="${
+//               global.search.type === 'movie'
+//                 ? result.release_date
+//                 : result.first_air_date
+//             }"
+//             class="card-img-top"
+//           />`
+//               : `<img
+//             src="images/no-image.jpg"
+//             alt="${
+//               global.search.type === 'movie'
+//                 ? result.release_date
+//                 : result.first_air_date
+//             }"
+//             class="card-img-top"
+//           />`
+//           }
+//         </a>
+
+//         <div class="card-body">
+//           <h5 class="card-title">${
+//             global.search.type === 'movie' ? result.title : result.name
+//           }</h5>
+//           <p class="card-text">
+//             <small class="text-muted">Released: ${formatReleaseDate(
+//               global.search.type === 'movie'
+//                 ? result.release_date
+//                 : result.first_air_date
+//             )}</small>
+//           </p>
+//         </div>
+//     `;
+//     gridContainer.appendChild(div);
+//   });
+
+//   searchResultsContainer.appendChild(gridContainer);
+// }
+
 // Show Alert
 function showAlert(message, className = 'alert-error') {
   const alertEl = document.createElement('div');
