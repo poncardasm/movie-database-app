@@ -36,7 +36,7 @@ async function searchAPIData() {
   showSpinner();
 
   const response = await fetch(
-    `${API_URL}/search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}`
+    `${API_URL}/search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}&page=${global.search.page}`
   );
   const data = await response.json();
 
@@ -379,12 +379,18 @@ async function searchTitle() {
   }
 }
 
+// Display search results
 function displaySearchResult(results) {
+  // Clear previous results
+  document.querySelector('#search-results').innerHTML = ``;
+  document.querySelector('#search-results-heading').innerHTML = ``;
+  document.querySelector('#pagination').innerHTML = ``;
+
   results.forEach((result) => {
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
-        <a href="./movie-details.html?id=${result.id}">
+        <a href="./${global.search.type}-details.html?id=${result.id}">
           ${
             result.poster_path
               ? `<img
@@ -424,7 +430,46 @@ function displaySearchResult(results) {
 
     document.querySelector('#search-results-heading').innerHTML = `
     <h2 class="text-center">${results.length} of ${global.search.totalResults} Results for ${global.search.term}`;
+
     document.querySelector('#search-results').appendChild(div);
+  });
+
+  displayPagination();
+}
+
+// Create and Display Pagination for Search
+function displayPagination() {
+  const div = document.createElement('div');
+  div.classList.add('pagination');
+  div.innerHTML = `
+    <button class="btn btn-primary" id="prev">Prev</button>
+    <button class="btn btn-primary" id="next">Next</button>
+    <div class="page-counter">Page ${global.search.page} of ${global.search.totalPages}</div>`;
+
+  document.querySelector('#pagination').appendChild(div);
+
+  // Disable Prev button on first page
+  if (global.search.page === 1) {
+    document.querySelector('#prev').disabled = true;
+  }
+
+  // Disable Next button on last page
+  if (global.search.page === global.search.totalPages) {
+    document.querySelector('#next').disabled = true;
+  }
+
+  // Next page
+  document.querySelector('#next').addEventListener('click', async () => {
+    global.search.page++;
+    const { results, total_pages } = await searchAPIData();
+    displaySearchResult(results);
+  });
+
+  // Previous page
+  document.querySelector('#prev').addEventListener('click', async () => {
+    global.search.page--;
+    const { results, total_pages } = await searchAPIData();
+    displaySearchResult(results);
   });
 }
 
